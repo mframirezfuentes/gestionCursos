@@ -45,8 +45,8 @@ app.put("/curso", async (req, res) => {
     })
 })
 
-app.delete("/cursos/:curso", async (req, res) => {
-    const {curso}= req.params
-    const registro = await deleteCurso(curso)
-    res.end(JSON.stringify(registro))
+app.delete("/curso/:id", async (req, res) => {
+    const {id}= req.params
+    const registro = await deleteCurso(id)
+    res.send(JSON.stringify(registro))
 })
