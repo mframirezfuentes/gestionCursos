@@ -51,9 +51,9 @@ async function editCurso(datos) {
         return error
     }
 }
-async function deleteCurso(id) {  
+async function deleteCurso(nombre) {  
     try {
-        const result = await pool.query(`DELETE FROM cursos where id=${id}`)
+        const result = await pool.query(`DELETE FROM cursos where nombre='${nombre}'`)
         return result.rows
     } catch (error) {
         console.log(error)
