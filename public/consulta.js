@@ -42,7 +42,6 @@ async function editCurso(datos) {
         values: [datos[0], Number(datos[1]),datos[2], Number(datos[3])]
 
     }
-    console.log("c", consulta)
     try {
         const result = (await pool.query(consulta))      
         return result.rows
@@ -52,9 +51,24 @@ async function editCurso(datos) {
         return error
     }
 }
+async function deleteCurso(datos){
+    const consulta={
+        text: `DELETE FROM cursos where nombre=$1`,
+        vaules:datos
+    }
+    try {
+        const result=await pool.query(consulta)
+        console.log("r",result)
+        return result.rows
+    } catch (error) {
+        console.log(error)
+        return error
+    }
+}
 
 module.exports = {
     insertarCurso,
     consultarCursos,
-    editCurso
+    editCurso,
+    deleteCurso
 }
