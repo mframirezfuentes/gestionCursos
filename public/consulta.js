@@ -1,6 +1,7 @@
 const {
     Pool
 } = require('pg')
+const moment=require('moment')
 const pool = new Pool({
     user: 'postgres',
     port: 5432,
@@ -15,7 +16,7 @@ async function insertarCurso(datos) {
         values: datos
     }
     try {
-        const result = await pool.query(consulta)
+        const result = await pool.query(consulta)      
         return result.rows
     } catch (error) {
         console.log(error)
@@ -27,6 +28,11 @@ async function consultarCursos() {
 
     try {
         const result = await pool.query(`SELECT * FROM cursos order by id asc`)
+        let filas = result.rows
+        filas.forEach(element => {
+            let fecha = element.fecha;
+            element.fecha = moment(fecha).format('YYYY-MM-DD')
+        });
         return result.rows
 
     } catch (error) {
